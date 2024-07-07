@@ -1,24 +1,6 @@
 // vars/buildAndDeploy.groovy
 def call() {
 
-    options {
-        disableConcurrentBuilds()
-        buildDiscarder(logRotator(daysToKeepStr: '30'))
-        timestamps()
-    }
-
-    environment {
-        POLYBOT_IMG_NAME = "dockerbot:${BUILD_NUMBER}"
-        NGINX_IMG = "nginx:alpine"
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub') // Jenkins credentials ID
-        APP_IMAGE_NAME = 'python-app-image'
-        WEB_IMAGE_NAME = 'web-image'
-        DOCKER_COMPOSE_FILE = 'docker-compose.yml'
-        BUILD_DATE = new Date().format('yyyyMMdd-HHmmss')
-        IMAGE_TAG = "v1.0.0-${BUILD_NUMBER}-${BUILD_DATE}"
-        SNYK_TOKEN = credentials('snykAPI')
-    }
-
     stages {
         stage('Pull Nginx Image') {
             steps {
