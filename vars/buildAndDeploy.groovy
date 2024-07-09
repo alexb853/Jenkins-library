@@ -1,5 +1,6 @@
 // vars/buildAndDeploy.groovy
 def call() {
+  node {
     stage('Pull Nginx Image') {
         steps {
             script {
@@ -63,4 +64,5 @@ def call() {
             cleanWs()
         }
     }
+  }
 }
